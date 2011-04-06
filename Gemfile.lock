@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    g2o (1.0)
+    g2o_warden (1.0)
 
 GEM
   remote: http://rubygems.org/
@@ -19,7 +19,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  g2o!
+  g2o_warden!
   rack
   rack-test
   riot
