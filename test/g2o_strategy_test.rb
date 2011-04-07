@@ -27,8 +27,8 @@ context "G2O" do
     setup do
       uri = "http://example.org/moavie.mp4"
       headers = {
-        "X-Akamai-G2O-Auth-Data" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
-        "X-Akamai-G2O-Auth-Sign" => "FDFur7kM8eCTi02yRz1yYw=="
+        "HTTP_X_AKAMAI_G2O_AUTH_DATA" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+        "HTTP_X_AKAMAI_G2O_AUTH_SIGN" => "FDFur7kM8eCTi02yRz1yYw=="
       }
       get uri, {}, headers
     end
@@ -40,7 +40,7 @@ context "G2O" do
     setup do
       uri = "http://example.org/moavie.mp4"
       headers = {
-        "X-Akamai-G2O-Auth-Data" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+        "HTTP_X_AKAMAI_G2O_AUTH_DATA" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
       }
       get uri, {}, headers
     end
@@ -63,7 +63,7 @@ context "G2O" do
     setup do
       uri = "http://example.org/moavie.mp4"
       headers = {
-        "X-Akamai-G2O-Auth-Data" => "192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+        "HTTP_X_AKAMAI_G2O_AUTH_DATA" => "192.168.0.1, 192.168.1.1, 1302112359, 123, token",
       }
       get uri, {}, headers
     end
@@ -75,8 +75,8 @@ context "G2O" do
     setup do
       uri = "http://example.org/moavie.mp4"
       headers = {
-        "X-Akamai-G2O-Auth-Data" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
-        "X-Akamai-G2O-Auth-Sign" => "Asd456kM8eCTi02yRz1yYA=="
+        "HTTP_X_AKAMAI_G2O_AUTH_DATA" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+        "HTTP_X_AKAMAI_G2O_AUTH_SIGN" => "Asd456kM8eCTi02yRz1yYA=="
       }
       get uri, {}, headers
     end
@@ -88,8 +88,8 @@ context "G2O" do
     setup do
       uri = "http://example.org/moavie.mp4"
       headers = {
-        "X-Akamai-G2O-Auth-Data" => "2, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
-        "X-Akamai-G2O-Auth-Sign" => "FDFur7kM8eCTi02yRz1yYw=="
+        "HTTP_X_AKAMAI_G2O_AUTH_DATA" => "2, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+        "HTTP_X_AKAMAI_G2O_AUTH_SIGN" => "FDFur7kM8eCTi02yRz1yYw=="
       }
       get uri, {}, headers
     end

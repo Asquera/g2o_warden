@@ -4,7 +4,7 @@ require 'base64'
 class Warden::Strategies::G2O < Warden::Strategies::Base
   
   def valid?
-    if ["X-Akamai-G2O-Auth-Data", "X-Akamai-G2O-Auth-Sign"].all? { |header| !env[header.to_s].nil? }
+    if ["HTTP_X_AKAMAI_G2O_AUTH_DATA", "HTTP_X_AKAMAI_G2O_AUTH_SIGN"].all? { |header| !env[header.to_s].nil? }
       custom!([400, {"Content-Length" => "0"}, ["G2O Versions other than 3 are unsupported"]]) unless 3 == auth_data[:version].to_i
       true
     else
@@ -13,8 +13,8 @@ class Warden::Strategies::G2O < Warden::Strategies::Base
   end
 
   def authenticate!
-    given = env["X-Akamai-G2O-Auth-Sign"]
-    sign_data = "#{env["X-Akamai-G2O-Auth-Data"]}#{request.url}"
+    given = env["HTTP_X_AKAMAI_G2O_AUTH_SIGN"]
+    sign_data = "#{env["HTTP_X_AKAMAI_G2O_AUTH_DATA"]}#{request.url}"
     expected = Base64.encode64(OpenSSL::HMAC.digest("md5", secret, sign_data)).chomp # for whatever reason base64 encode adds a newline
     
     if given == expected
@@ -35,7 +35,7 @@ class Warden::Strategies::G2O < Warden::Strategies::Base
     }
     
     data = {}
-    env["X-Akamai-G2O-Auth-Data"].split(",").each_with_index {|value, index|
+    env["HTTP_X_AKAMAI_G2O_AUTH_DATA"].split(",").each_with_index {|value, index|
       data[index_map[index.to_i]] = value.strip
     }
     data
