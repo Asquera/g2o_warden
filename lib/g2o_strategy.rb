@@ -4,7 +4,12 @@ require 'base64'
 class Warden::Strategies::G2O < Warden::Strategies::Base
   
   def valid?
-    ["X-Akamai-G2O-Auth-Data", "X-Akamai-G2O-Auth-Sign"].all? { |header| !env[header.to_s].nil? } && 3 == auth_data[:version].to_i
+    if ["X-Akamai-G2O-Auth-Data", "X-Akamai-G2O-Auth-Sign"].all? { |header| !env[header.to_s].nil? }
+      custom!([400, {"Content-Length" => "0"}, ["G2O Versions other than 3 are unsupported"]]) unless 3 == auth_data[:version].to_i
+      true
+    else
+      false      
+    end
   end
 
   def authenticate!

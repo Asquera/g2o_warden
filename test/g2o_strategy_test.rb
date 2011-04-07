@@ -23,7 +23,7 @@ context "G2O" do
     end.to_app
   ) 
 
-  context "app" do
+  context "valid request" do
     setup do
       uri = "http://example.org/moavie.mp4"
       headers = {
@@ -34,5 +34,66 @@ context "G2O" do
     end
 
     asserts(:status).equals(200)
+  end
+  
+  context "unsigned request" do
+    setup do
+      uri = "http://example.org/moavie.mp4"
+      headers = {
+        "X-Akamai-G2O-Auth-Data" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+      }
+      get uri, {}, headers
+    end
+
+    asserts(:status).equals(401)
+  end
+  
+  context "request without headers" do
+    setup do
+      uri = "http://example.org/moavie.mp4"
+      headers = {
+      }
+      get uri, {}, headers
+    end
+
+    asserts(:status).equals(401)
+  end
+  
+  context "request with crippled headers" do
+    setup do
+      uri = "http://example.org/moavie.mp4"
+      headers = {
+        "X-Akamai-G2O-Auth-Data" => "192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+      }
+      get uri, {}, headers
+    end
+
+    asserts(:status).equals(401)
+  end
+  
+  context "request with invalid signature" do
+    setup do
+      uri = "http://example.org/moavie.mp4"
+      headers = {
+        "X-Akamai-G2O-Auth-Data" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+        "X-Akamai-G2O-Auth-Sign" => "Asd456kM8eCTi02yRz1yYA=="
+      }
+      get uri, {}, headers
+    end
+
+    asserts(:status).equals(401)
+  end
+  
+  context "valid request with unsupported version" do
+    setup do
+      uri = "http://example.org/moavie.mp4"
+      headers = {
+        "X-Akamai-G2O-Auth-Data" => "2, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
+        "X-Akamai-G2O-Auth-Sign" => "FDFur7kM8eCTi02yRz1yYw=="
+      }
+      get uri, {}, headers
+    end
+
+    asserts(:status).equals(400)
   end
 end
