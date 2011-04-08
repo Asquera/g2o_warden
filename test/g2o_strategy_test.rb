@@ -28,7 +28,7 @@ context "G2O" do
       uri = "http://example.org/moavie.mp4"
       headers = {
         "HTTP_X_AKAMAI_G2O_AUTH_DATA" => "3, 192.168.0.1, 192.168.1.1, 1302112359, 123, token",
-        "HTTP_X_AKAMAI_G2O_AUTH_SIGN" => "FDFur7kM8eCTi02yRz1yYw=="
+        "HTTP_X_AKAMAI_G2O_AUTH_SIGN" => "M4yngcG84jaHtU85sSjh2g=="
       }
       get uri, {}, headers
     end

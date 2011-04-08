@@ -14,7 +14,7 @@ class Warden::Strategies::G2O < Warden::Strategies::Base
 
   def authenticate!
     given = env["HTTP_X_AKAMAI_G2O_AUTH_SIGN"]
-    sign_data = "#{env["HTTP_X_AKAMAI_G2O_AUTH_DATA"]}#{request.url}"
+    sign_data = "#{env["HTTP_X_AKAMAI_G2O_AUTH_DATA"]}#{request.path}" # even though the akamai documentation always specifically mentions "URL" they actually mean "PATH" *sigh*
     expected = Base64.encode64(OpenSSL::HMAC.digest("md5", secret, sign_data)).chomp # for whatever reason base64 encode adds a newline
     
     if given == expected
