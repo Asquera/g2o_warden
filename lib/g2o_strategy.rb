@@ -1,5 +1,6 @@
 require 'warden'
-require 'base64'
+require 'digest/hmac'
+require 'digest/md5'
 
 class Warden::Strategies::G2O < Warden::Strategies::Base
   
@@ -15,7 +16,7 @@ class Warden::Strategies::G2O < Warden::Strategies::Base
   def authenticate!
     given = env["HTTP_X_AKAMAI_G2O_AUTH_SIGN"]
     sign_data = "#{env["HTTP_X_AKAMAI_G2O_AUTH_DATA"]}#{request.path}" # even though the akamai documentation always specifically mentions "URL" they actually mean "PATH" *sigh*
-    expected = Base64.encode64(OpenSSL::HMAC.digest("md5", secret, sign_data)).chomp # for whatever reason base64 encode adds a newline
+    expected = Digest::HMAC.new(secret, Digest::MD5).base64digest(sign_data)
     
     if given == expected
       success!(retrieve_user)
