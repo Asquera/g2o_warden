@@ -9,11 +9,16 @@ GEM
     rack (1.2.2)
     rack-test (0.5.7)
       rack (>= 1.0)
+    rdiscount (1.6.8)
     riot (0.12.3)
       rr
     rr (1.0.2)
+    simplecov (0.4.2)
+      simplecov-html (~> 0.4.4)
+    simplecov-html (0.4.5)
     warden (1.0.3)
       rack (>= 1.0.0)
+    yard (0.7.2)
 
 PLATFORMS
   ruby
@@ -22,5 +27,9 @@ DEPENDENCIES
   g2o_warden!
   rack
   rack-test
+  rdiscount
   riot
+  simplecov
+  simplecov-html
   warden
+  yard
